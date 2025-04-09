@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Safety Scanner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #e0f7f9;
+            border-radius: 10px;
+            width: 350px;
+            margin: 0 auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .header {
+            background-color: #d0e7e9;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+            color: #333;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .food-info, .nutrition, .food-safety {
+            margin-top: 20px;
+        }
+        .food-info input {
+            width: 95%; 
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .food-image {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .input-with-icon {
+            position: relative;
+            width: 86%; 
+            margin-bottom: 10px;
+        }
+        .input-with-icon input {
+            width: 100%; 
+            padding-right: 40px; 
+        }
+        .pencil-icon {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            right: 190px; 
+            top: 40%; 
+            transform: translateY(-50%);
+        }
+        .restaurant {
+            font-size: 14px;
+            color: #555;
+        }
+        .nutrition h2, .food-safety h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .nutrition-values, .food-safety-details {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .nutrition-values p, .food-safety-details p {
+            margin: 5px 0;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .warning {
+            background-color: #ffcccb;
+            color: #d32f2f;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .warning img {
+            width: 20px; 
+            height: 20px;
+            margin-right: 8px;
+        }
+        .allergen {
+            background-color: #ffcccb;
+            color: #d32f2f;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 5px;
+            display: inline-block;
+        }
+        .check {
+            color: green;
+            font-weight: bold;
+        }
+        .navigation {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .navigation button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .navigation button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>FOOD SAFETY SCANNER</h1>
+        </div>
+
+        <div id="homepage" class="page active">
+            <div class="food-info">
+                <img src="lobsterpasta-featured.jpg" alt="Fried E-Noodles with Lobster and Cheese Sauce" class="food-image">
+                <input type="text" value="Fried E-Noodles with Lobster and Cheese Sauce" readonly>
+                <div class="input-with-icon">
+                    <input type="text" value="The mass ..." readonly>
+                    <img src="pencil.png" alt="Pencil Icon" class="pencil-icon">
+                </div>
+                <p class="restaurant"> Restaurant: CHINA GARDEN @ HKUST</p>
+            </div>
+        </div>
+
+        <div id="nutrition-page" class="page">
+            <div class="nutrition">
+                <h2>NUTRITION INFORMATION</h2>
+                <div class="nutrition-values">
+                    <p><span>ENERGY</span><span>204 kJ</span></p>
+                    <p><span>PROTEIN</span><span>16.57 g</span></p>
+                    <p><span>CARBOHYDRATES</span><span>18.64 g</span></p>
+                    <p><span>TOTAL FATS</span><span>2.30 g</span></p>
+                    <p><span>SUGARS</span><span>1.20 g</span></p>
+                    <p><span>SODIUM</span><span>584 mg</span></p>
+                    <p><span>DIETARY FIBER</span><span>0.7 g</span></p>
+                    <p><span>MINERALS</span><span>120 mg</span></p>
+                    <p><span>VITAMINS</span><span>120 mg</span></p>
+                    <div class="warning">
+                        <img src="warning.png" alt="Warning Icon">
+                        High blood pressure
+                    </div>
+                    <div class="warning">
+                        <img src="warning.png" alt="Warning Icon">
+                        Fatty liver
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="food-safety-page" class="page">
+            <div class="food-safety">
+                <h2>FOOD SAFETY</h2>
+                <div class="food-safety-details">
+                    <p><span>Allergens</span></p>
+                    <div class="allergen">Milk</div>
+                    <div class="allergen">Shellfish</div>
+                    <p><span>Parasites</span><span class="check">✔</span></p>
+                    <p><span>Pathogens</span><span class="check">✔</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button onclick="showPage('homepage')">Home</button>
+            <button onclick="showPage('nutrition-page')">Nutrition</button>
+            <button onclick="showPage('food-safety-page')">Food Safety</button>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
