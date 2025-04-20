@@ -21,19 +21,43 @@
             position: relative;
         }
         .header {
-            background-color: #d0e7e9;
+            display: grid;
+            grid-template-columns: 40px 1fr 40px;
+            position: relative;
             padding: 10px;
-            border-radius: 5px;
-            text-align: center;
+        }
+        .app-icon {
+            width: 30px;
+            height: 30px;
         }
         .header h1 {
             margin: 0;
             font-size: 20px;
             color: #333;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .foodlytics-icon {
+            width: 20px;
+            height: 20px;
+        }
+        .reset-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .reset-icon {
+            width: 20px;
+            height: 20px;
         }
         .page {
             display: none;
-            min-height: 500px;
+            min-height: 500px; 
         }
         .page.active {
             display: block;
@@ -50,9 +74,23 @@
         }
         .food-image {
             width: 100%;
-            height: auto;
+            height: 200px;
             border-radius: 5px;
             margin-bottom: 10px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px dashed #ccc;
+            transition: all 0.3s;
+        }
+        .food-image.empty::before {
+            content: "Photo of the food";
+            color: #999;
+        }
+        .food-image:hover {
+            border-color: #4CAF50;
         }
         .input-with-icon {
             position: relative;
@@ -140,18 +178,21 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>FOOD SAFETY SCANNER</h1>
+            <img src="app-icon.jpg" alt="App Icon" class="app-icon">
+            <h1>FOODLYTICS</h1>
+            <button class="reset-btn" onclick="resetScanner()">
+                <img src="reset-icon.png" alt="Reset" class="reset-icon">
+            </button>
         </div>
 
         <div id="homepage" class="page active">
             <div class="food-info">
-                <img src="lobsterpasta-featured.jpg" alt="Fried E-Noodles with Lobster and Cheese Sauce" class="food-image">
-                <input type="text" value="Fried E-Noodles with Lobster and Cheese Sauce" readonly>
+                <div id="foodImage" class="food-image empty" onclick="scanFood()"></div>
+                <input type="text" id="foodName" value="" placeholder="(The name of the food)" readonly>
                 <div class="input-with-icon">
-                    <input type="text" value="The mass ..." readonly>
-                    <img src="pencil.png" alt="Pencil Icon" class="pencil-icon">
+                    <input type="text" id="foodMass" value="" placeholder="(The mass)" readonly>
                 </div>
-                <p class="restaurant"> Restaurant: CHINA GARDEN @ HKUST</p>
+                <p class="restaurant" id="restaurant"> Restaurant: (Restaurant Name) </p>
             </div>
         </div>
 
@@ -192,7 +233,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="navigation">
             <button onclick="showPage('homepage')">Home</button>
             <button onclick="showPage('nutrition-page')">Nutrition</button>
@@ -206,6 +247,37 @@
                 page.classList.remove('active');
             });
             document.getElementById(pageId).classList.add('active');
+        }
+        function scanFood() {
+            const foodImage = document.getElementById('foodImage');
+            if (foodImage.classList.contains('empty')) {
+                foodImage.classList.remove('empty');
+                foodImage.style.backgroundImage = 'url(lobsterpasta-featured.jpg)';
+                foodImage.style.backgroundSize = 'cover';
+                foodImage.style.backgroundPosition = 'center';
+                foodImage.innerHTML = '';
+                document.getElementById('foodName').value = 'Fried E-Noodles with Lobster and Cheese Sauce';
+                document.getElementById('foodMass').value = 'The mass ...';
+                document.getElementById('restaurant').textContent = 'Restaurant: CHINA GARDEN @ HKUST';
+                const massInput = document.querySelector('.input-with-icon');
+                const pencilIcon = document.createElement('img');
+                pencilIcon.src = 'pencil.png';
+                pencilIcon.alt = 'Pencil Icon';
+                pencilIcon.className = 'pencil-icon';
+                massInput.appendChild(pencilIcon);
+            }
+        }
+        function resetScanner() {
+            const foodImage = document.getElementById('foodImage');
+            foodImage.classList.add('empty');
+            foodImage.style.backgroundImage = '';
+            document.getElementById('foodName').value = '';
+            document.getElementById('foodMass').value = '';
+            document.getElementById('restaurant').textContent = 'Restaurant: (Restaurant Name)';
+            const pencilIcon = document.querySelector('.pencil-icon');
+            if (pencilIcon) {
+                    pencilIcon.remove();
+            }
         }
     </script>
 </body>
